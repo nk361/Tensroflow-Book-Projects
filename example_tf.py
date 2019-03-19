@@ -1,5 +1,5 @@
 import tensorflow as tf
-#from tensorflow import keras as ks
+# from tensorflow import keras as ks
 
 mnist = tf.keras.datasets.mnist
 
@@ -10,9 +10,9 @@ x_train, x_test = x_train / 255.0, x_test / 255.0  # x trains are 60k images, te
 
 model = tf.keras.models.Sequential([  # I didn't really know that you could build your model all inline within sequential()
     tf.keras.layers.Flatten(input_shape=(28, 28)),  # flattens each image into a 1D array for input, 28 by 28 is the image's sizes, no third dimension for color because they're in black and white
-    #tf.keras.layers.Dense(512, activation=tf.nn.leaky_relu),  # doesn't need dropout after it because the neurons don't die like normal relu
+    #tf.keras.layers.Dense(512, activation=tf.nn.leaky_relu)  # normal relu neurons can die by going passed zero where the gradient is 0, leaky relu gives a small amount of gradient passed zero
     tf.keras.layers.Dense(512, activation=tf.nn.relu),  # like exponential function but compressed, better and newer than sigmoid I think and also maybe better than tanh too
-    tf.keras.layers.Dropout(0.2),  # dropout I think can either drop nodes at random with no parameters or drop nodes with a given range
+    tf.keras.layers.Dropout(0.2),  # dropout randomly drops nodes with the parameter being the fraction rate to drop them
     tf.keras.layers.Dense(10, activation=tf.nn.softmax)  # softmax is a great activation function for the final layer of a classification network, it gives values that can be converted to percents that WILL add up to be 100%
 ])
 model.compile(optimizer='adam',  # Adam is one of many functions for traversing to a low point on a gradient, currently the best mini batch SGD optimizer, but may take more computations
