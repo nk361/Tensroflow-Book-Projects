@@ -32,6 +32,8 @@ b2 = tf.Variable(tf.zeros([1]), name="Bias2")
 
 # my own comment
 # for some reason, the shapes of the tensors aren't always compatible with matmul's needs and so the program fails
+# z2 is the "hidden layer" and without sigmoid in its computation, it is linear and gives very poor results with all output almost equal
+# when the hidden layers are linear, the whole model remains linear which makes it very poor with non linear problems like discriminating classes
 z2 = tf.sigmoid(tf.matmul(x_, w1) + b1)
 pred = tf.sigmoid(tf.matmul(z2, w2) + b2)
 
@@ -66,6 +68,8 @@ for i in range(100000):
     sess.run(train_step, feed_dict={x_: XOR_X, y_: XOR_Y})
 
 print('Final Prediction', sess.run(pred, feed_dict={x_: XOR_X, y_: XOR_Y}))
+
+sess.close()  # I added this
 
 # my own comments
 # possible output:
