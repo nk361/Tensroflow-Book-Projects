@@ -17,14 +17,14 @@ def read_infile():
     target = np.array(data.target)
     return features, target
 
-# Normalize the features by Z scaling; i.e., subtract subtract from each value its mean and
+# Normalize the features by Z scaling; i.e., subtract from each value its mean and
 # then divide by its #standard deviation. Accelerates gradient descent
 
 
 def feature_normalize(data):
     mu = np.mean(data, axis=0)
     std = np.std(data, axis=0)
-    return (data - mu)/std
+    return (data - mu) / std
 
 # Append the feature for the bias term
 
@@ -85,4 +85,12 @@ print("Mean Squared Error in training: ", cost_trace[-1])
 import matplotlib.pyplot as plt
 # %matplotlib inline # this needs ipython or jupyter notebook, I don't know what importance this has and ipython conflicts with my virtual environment and I don't know if I want to use jupyter yet
 plt.plot(cost_trace)
+plt.show()  # added this line myself, shows the plot in pycharm's scientific mode
+
+# Plot the predicted house prvice vs the actual house prices
+
+fig, ax = plt.subplots()
+plt.scatter(Y_input, pred_)
+ax.set_xlabel("Actual House Price")
+ax.set_ylabel("Predicted House Price")
 plt.show()  # added this line myself, shows the plot in pycharm's scientific mode
